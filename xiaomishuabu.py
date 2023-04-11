@@ -1,3 +1,7 @@
+ ''' 
+ cron: 0 0 21 * * *
+ new Env('小米刷步')
+ '''
 # -*- coding: utf8 -*-
 import requests
 import time
