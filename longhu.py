@@ -1,4 +1,7 @@
-
+'''
+cron: 0 0 20 * * *
+new Env('龙虎榜')
+'''
 import requests
 import time
 import json
