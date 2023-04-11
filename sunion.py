@@ -1,5 +1,5 @@
 '''
-cron 0 0 21 * * *
+cron: 0 0 21 * * *
 new Env('正能量')
 '''
 import requests
