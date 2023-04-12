@@ -5,7 +5,7 @@
 本脚本没有设置重写，请自己复制zq_cookie到青龙环境下使用，多账号用@隔开
 例子： export zqkdCookie='uid=xxx&zqkey=yyy&zqkey_id=zzz@uid=aaa&zqkey=bbb&zqkey_id=ccc@uid=qqq&zqkey=sss&zqkey_id=ttt'
 
-cron 30 22 * * * zqkd_risk.js
+cron "30 22 * * *" 中青看点 风险查询+今日收益详情
 */
 
 const jsname = '中青看点风险查询'
