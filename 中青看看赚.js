@@ -7,7 +7,7 @@
 uid=12345678&zqkey=xxxxxx&zqkey_id=yyyyyyy@uid=87654321&zqkey=zzzzzzzz&zqkey_id=aaaaaa
 
 定时:
-2 2,15 * * *
+cron "2 2,15 * * *" 中青看点-看看赚
 
 */
 const _0x7fd325 = _0x277f;
