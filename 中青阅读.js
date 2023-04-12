@@ -6,8 +6,8 @@
 uid=12345678&zqkey=xxxxxx&zqkey_id=yyyyyyy@uid=87654321&zqkey=zzzzzzzz&zqkey_id=aaaaaa
 
 定时:
-4-59/15 11-18 * * *
 
+cron "4-59/15 11-18 * * *" 中青看点-自动阅读
 */
 const _0x2e04e2 = _0x5c50;
 (function (_0x2b8c5f, _0x2a1db3) {
