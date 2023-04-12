@@ -6,8 +6,7 @@
 uid=12345678&zqkey=xxxxxx&zqkey_id=yyyyyyy@uid=87654321&zqkey=zzzzzzzz&zqkey_id=aaaaaa
 
 定时每晚一次：
-50 21 * * *
-
+cron "50 21 * * *"  中青看点-任务奖励
 */
 const _0xfcf367 = _0xfd06;
 (function (_0x461398, _0x5c98d0) {
