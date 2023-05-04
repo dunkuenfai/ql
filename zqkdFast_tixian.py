@@ -21,12 +21,6 @@ user=os.environ['zqkdFastCookie']
 userInfos=user.split('@')
 def getScore(userInfo):
     userID=re.findall('(?<=uid=).+?(?=&)',userInfo)
-    # money=re.findall('(r"\d+\.?\d*"',userInfo)
-    # reg=re.compile(r"(?<=money=)\d+")
-    # money=reg.search(userInfo)
-
-    # print(money)
-#     return
     BASE_URL='https://user.youth.cn/v1/user/userinfo.json'
     headers = {
     "User-Agent":'Mozilla/5.0 (Linux; Android 11; M2012K11AC Build/RKQ1.200826.002; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/87.0.4280.141 Mobile Safari/537.36 hap/1.10/xiaomi com.miui.hybrid/1.10.3.3 com.youth.kandianquickapp/2.6.9 ({"packageName":"com.miui.quickappCenter","type":"url","extra":{"scene":""}})',
@@ -48,11 +42,26 @@ def getScore(userInfo):
         content = response.text
         #print(content)
         data=json.loads(content)
-        score=data['items']['score']
-        if(int(score)>3000):#默认提现0.3
-            print('用户(',userID,')积分(',score,')>3000,执行提现：')
-            getMoneyZFB(userInfo) #默认提现到支付宝
-            getMoneyWX(userInfo)
+        score=int(data['items']['score'])
+        money=0
+
+        if score>300000:
+            money=30
+        elif score>100000:
+            money=10
+        elif score>50000:
+            money=5
+        elif score>3000:
+            money=0.3
+        else:
+            print('青豆少于3000，终止提现！')
+            return
+
+
+        print('用户ID',userID,' 青豆(',score,'),可以提现',money,'元')
+        userInfo=userInfo+'&money='+str(money)
+        getMoneyZFB(userInfo) #默认提现到支付宝
+        # getMoneyWX(userInfo)
     except Exception as e:
 
         print("请求错误：", e)
