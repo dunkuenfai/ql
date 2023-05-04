@@ -1,6 +1,7 @@
 '''
 cron: 0 0 21 * * *
 new Env('正能量')
+公司内部签到APP，你们下了没用
 '''
 import requests
 import time
