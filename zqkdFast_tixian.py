@@ -1,5 +1,6 @@
 '''
-cron 0 3 9 * *
+cron： 0 3 9 * *
+
 new Env('中青看点极速版提现')
 
 变量名：zqkdFastCookie，抓https://user.youth.cn/FastApi/Alipay/withdraw.json（支付宝提现，推荐）
