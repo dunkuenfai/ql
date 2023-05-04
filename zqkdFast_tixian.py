@@ -1,12 +1,12 @@
 '''
-cron： 0 3 9 * *
+cron:0 3 9 * *
 
 new Env('中青看点极速版提现')
 
-变量名：zqkdFastCookie，抓https://user.youth.cn/FastApi/Alipay/withdraw.json（支付宝提现，推荐）
+变量名:zqkdFastCookie,抓https://user.youth.cn/FastApi/Alipay/withdraw.json（支付宝提现,推荐）
 或 https://user.youth.cn/v1/Withdraw/wechat.json（微信提现）
 
-可与leaf共用变量，多了money=0.3，微信要求全部头
+可与leaf共用变量,多了money=0.3,微信要求全部头
 '''
 
 
