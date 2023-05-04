@@ -26,7 +26,7 @@ def getScore(userInfo):
     # money=reg.search(userInfo)
 
     # print(money)
-    return
+#     return
     BASE_URL='https://user.youth.cn/v1/user/userinfo.json'
     headers = {
     "User-Agent":'Mozilla/5.0 (Linux; Android 11; M2012K11AC Build/RKQ1.200826.002; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/87.0.4280.141 Mobile Safari/537.36 hap/1.10/xiaomi com.miui.hybrid/1.10.3.3 com.youth.kandianquickapp/2.6.9 ({"packageName":"com.miui.quickappCenter","type":"url","extra":{"scene":""}})',
