@@ -6,6 +6,8 @@ new Env('星空穿透签到')
 随便写，不确定能用
 
 把账号密码写到19，20行
+Cookie写到59行
+csrf_token写到61行
 
 by dunkuenfai
 
