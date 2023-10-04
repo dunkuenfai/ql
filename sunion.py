@@ -12,6 +12,7 @@ from datetime import timedelta
 #https://weapp.zhdy.es668.cn/records?access-token=hJMVgtfhfmBJrlrzV-efVM2HiGonH5OA
 
 token=os.environ['znl']
+base_url='https://weapp.zhdy.yishangkj.com'
 # 签到
 msg=""
 params = {"records":[
@@ -60,9 +61,9 @@ def zhengnengliang():
 
     try:
 
-        url = "https://weapp.zhdy.es668.cn/records?access-token="+token
+        url = base_url+"/records?access-token="+token
         headers = {
-    "host":"weapp.zhdy.es668.cn",
+    # "host":"weapp.zhdy.es668.cn",
     "Connection":"keep-alive",
     "content-type":"application/json",
     "Accept":"application/json",
@@ -114,9 +115,9 @@ def paiming():
     # print(month)
     global  msg
     try:
-       url = "https://weapp.zhdy.es668.cn/paimings/latest/1?access-token=" +token
+       url = base_url+"/paimings/latest/1?access-token=" +token
        headers={
-        "host":"weapp.zhdy.es668.cn",
+        # "host":"weapp.zhdy.es668.cn",
         "Connection":"keep-alive",
         "content-type":"application/json",
         "Accept":"application/json",
