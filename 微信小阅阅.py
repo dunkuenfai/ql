@@ -20,11 +20,11 @@ import random
 
 
 ysmuidList = [
-    "29a3867bb367ca26196405d8ebcea04d",
-    "0d17ad03e98ecb56ea79f4b09e9a62ab",
-    "e78214c19490440d7902d085d53e4042",
+    "29a3867bb367ca26196405d8*bcea04d",
+    "0d17ad03e98ecb56ea79f4b09e9a***",
+    "e78214c19490440d7902d085**3e404*",
     "40bda2e5ef6839a5f48f36ac7e6db5a3",
-    "1f07065ea0c7a7102e344ee1bd0dd187",
+    "1f07065ea0c7a7102e344ee1bd0*d187",
 ]
 
 # ysmuid = "29a3867bb367ca26196405d8ebcea04d"
