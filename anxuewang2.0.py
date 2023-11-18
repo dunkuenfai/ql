@@ -450,15 +450,17 @@ def main():
         refresh=getToken(refresh_token)
         # print(refresh)
         if ('code' not in refresh):
+            print('==================================================')
             refresh_list.append(refresh['name']+'#'+refresh['refresh_token'])
-            # print(refresh)
+            print('执行任务：',refresh['name'])
             access_token=refresh['access_token']
-            print(access_token)
+            # print(refresh)
             postSign()# 每日签到
             postShare()#每日分享
             postDailyquestions()#m每日答题
             getTZquestions() #挑战答题
             getTZquestions() #挑战答题
+            print('==================================================')
 
     value='0'
     if(len(refresh_list)>0):
@@ -469,7 +471,3 @@ def main():
 
 if __name__ == "__main__":
      main()
-    
-
-
-     
