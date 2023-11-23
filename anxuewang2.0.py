@@ -32,6 +32,56 @@ access_token = ""
 refresh_token=""
 
 ql_Token=''
+
+def getCode(phone):
+    TIMESTAMP = getTimeStamp()
+    # print(TIMESTAMP)
+    var2 = "";
+    NONCE = getRandomString(11);
+    var2 = createSign(TIMESTAMP, TIMESTAMP);
+    texts = "NONCE=" + NONCE + "&SIGN=" + var2 + " & SIGN_TYPE = SHA256&TIMESTAMP = " + TIMESTAMP
+    texts=texts.replace(" ","")
+
+    url = 'https://safetyinformation.cn/api/admin/mobile/autoRegLoginMsg/' + phone + '?' + texts
+    print(url)
+    payload = {}
+    headers = {
+  'Host': 'safetyinformation.cn',
+  'Cookie': 'JSESSIONID=sXaxifeju5AnrQLI3WyNTqBCQ_UL0Jfmt1uSvrbl',
+  'Connection': 'keep-alive',
+  'API-VERSION': '2',
+  'Accept': '*/*',
+  'User-Agent': 'AnXueWang/3.0.5 (iPad; iOS 15.4.1; Scale/2.00)',
+  'Accept-Language': 'zh-Hans-US;q=1, en-US;q=0.9',
+  'Authorization': 'Basic aW9zOmlvcw==',
+  'Accept-Encoding': 'gzip, deflate, br'
+    }
+
+    response = requests.request("GET", url, headers=headers, data=payload)
+
+    print(response.text)
+
+
+def getCk(phone, code):
+    url = "https://safetyinformation.cn/api/auth/app/token/sms?app=APPSMS@" + phone + "&code=" + code;
+
+    headers = {
+    "Host": "safetyinformation.cn",
+    "Content-Type": "application/json",
+    "Accept-Encoding": "gzip, deflate, br",
+    "API-VERSION": "2",
+    "Connection": "keep-alive",
+    "Accept": "*/*",
+    "Accept-Language": "zh-Hans-US;q=1, en-US;q=0.9",
+    "Authorization": "Basic aW9zOmlvcw==",
+  }
+    data=setData()['jsons']
+
+    response = requests.request("POST", url, headers=headers, data=data)
+
+    print(response.text)
+
+
 '''
 签到
 '''
@@ -323,7 +373,33 @@ def getToken(refresh_token):
     
     return ret
     
+def getToken2(refresh_token):
+    import requests
 
+    url = "https://safetyinformation.cn/api/auth/oauth/token?grant_type=refresh_token&scope=server&refresh_token="+refresh_token
+
+    payload = {}
+    headers = {
+  'authority': 'safetyinformation.cn',
+  'accept': 'application/json, text/plain, */*',
+  'accept-language': 'zh-CN,zh;q=0.9',
+  'authorization': 'Basic c2hhcmU6c2hhcmU=',
+  'content-length': '0',
+  'content-type': 'application/x-www-form-urlencoded',
+  'cookie': 'JSESSIONID=PJD_kY4iyr7sDNUI9YXPN-FCc14ZW8MyzY0a1f07',
+  'origin': 'https://safetyinformation.cn',
+  'referer': 'https://safetyinformation.cn/safety',
+  'sec-fetch-dest': 'empty',
+  'sec-fetch-mode': 'cors',
+  'sec-fetch-site': 'same-origin',
+  'user-agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/16.0 Safari/605.1.15 Edg/119.0.0.0'
+}
+
+
+    response = requests.request("POST", url, headers=headers, data=payload)
+    ret=json.loads(response.text)
+    
+    return ret
 
 '''
 生成url字符及挑战答题json
@@ -447,22 +523,23 @@ def main():
     for refresh_token_tmp in refresh_token_list:
         a=refresh_token_tmp.split('#')
         refresh_token=a[len(a)-1]
-        refresh=getToken(refresh_token)
+        refresh=getToken2(refresh_token)
         # print(refresh)
         if ('code' not in refresh):
-            print('==================================================')
             refresh_list.append(refresh['name']+'#'+refresh['refresh_token'])
-            print('执行任务：',refresh['name'])
-            access_token=refresh['access_token']
             # print(refresh)
+            access_token=refresh['access_token']
+            print(access_token)
             postSign()# 每日签到
             postShare()#每日分享
             postDailyquestions()#m每日答题
             getTZquestions() #挑战答题
             getTZquestions() #挑战答题
-            print('==================================================')
+        else:
+            refresh_list.append('已过期#'+refresh_token)
 
-    value='0'
+
+    value=0
     if(len(refresh_list)>0):
         value=''
     for s in refresh_list:
@@ -471,3 +548,7 @@ def main():
 
 if __name__ == "__main__":
      main()
+    
+
+
+     
