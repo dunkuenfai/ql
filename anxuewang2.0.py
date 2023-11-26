@@ -482,13 +482,14 @@ def getEvns():
     response = requests.request("GET", url, headers=headers, data=payload)
     ret=json.loads(response.text)
     datas=ret['data']
-    data=''
+    re_data=''
     for data in datas:
         if(data['name']=='anxue_token'):
             envId=data['id']
+            re_data = data
             # print(data['value'])
     # print(envId)
-    return data
+    return re_data
 
 def updateEvn(id,value):
     url = ql_url+"/open/envs"
