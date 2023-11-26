@@ -527,7 +527,8 @@ def main():
         refresh=getToken2(refresh_token)
         # print(refresh)
         if ('code' not in refresh):
-            refresh_list.append(refresh['name']+'#'+refresh['refresh_token'])
+            b=refresh['name']+'#'+refresh['refresh_token']
+            refresh_list.append(b)
             # print(refresh)
             access_token=refresh['access_token']
             print(access_token)
