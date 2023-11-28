@@ -531,7 +531,7 @@ def main():
             refresh_list.append(b)
             # print(refresh)
             access_token=refresh['access_token']
-            print(access_token)
+            print(b)
             postSign()# 每日签到
             postShare()#每日分享
             postDailyquestions()#m每日答题
