@@ -1,11 +1,11 @@
 //阿里云盘连续签到活动
 /**
- * 项目变量：refresh_token
+ * 项目变量：access_token
  * cron: 0 0,7 * * *
  */
 
 const $ = API();
-const refresh_token = '';//抓包搜请求体关键字:refresh_token
+const refresh_token = process.env.access_token;//抓包搜请求体关键字:refresh_token
 
 !(async () => {
 
