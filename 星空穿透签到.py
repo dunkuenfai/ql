@@ -5,9 +5,8 @@ new Env('星空穿透签到')
 
 随便写，不确定能用
 
-把账号密码写到19，20行
-Cookie写到59行
-csrf_token写到61行
+把账号密码写环境变量
+export xingkong='账号#密码'
 
 by dunkuenfai
 
@@ -16,10 +15,15 @@ by dunkuenfai
 
 
 import requests
+import os
 from sendNotify import send
 
-username = ""
-password = ""
+users=os.environ['xingkong']
+
+user=users.split("#")
+# print(user)
+username =user[0]
+password = user[1]
 
 
 base_url = "https://frp.starryfrp.com/console/"
