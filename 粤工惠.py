@@ -11,7 +11,7 @@ new Env('粤工惠')
 import requests, json, time, random, os
 
 
-ck = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VySUQiOjEyNTM5OTksImV4cCI6MTcwMzA4MzA4MX0.rI4RseUeqJz_T5NTNsBNZiVcmNyQQUZaKnItbHIO8KQ"
+ck = ""
 
 
 def creditTasks():
@@ -55,6 +55,26 @@ def report(userStatusType):
         print(json.loads(response.text))
 
 
+def balance():
+    url = "https://matrix-api.gdftu.org.cn/api/v1/enduser/rewards/balance"
+
+    payload = {}
+    headers = {
+        "Host": "matrix-api.gdftu.org.cn",
+        "Connection": "keep-alive",
+        "Authorization": "Bearer " + ck,
+        "content-type": "application/json",
+        "Accept": "application/json, text/plain, */*",
+        "Accept-Encoding": "gzip,compress,br,deflate",
+        "User-Agent": "Mozilla/5.0 (iPad; CPU OS 15_4_1 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/15E148 MicroMessenger/8.0.44(0x18002c2b) NetType/WIFI Language/zh_CN",
+        "Referer": "https://servicewechat.com/wxfcc5a91b4f0d6e38/153/page-frame.html",
+    }
+
+    response = requests.request("GET", url, headers=headers, data=payload)
+
+    return json.loads(response.text)
+
+
 def main():
     tasks = creditTasks()
     for task in tasks:
@@ -69,11 +89,17 @@ def main():
                 t = random.uniform(0, 2)
                 print(i + 1)
                 time.sleep(t)
+    jifen = balance()["balance"]
+    print("任务完成，当前积分：", jifen)
+    print("==========================================================")
 
 
 if __name__ == "__main__":
     yghCKs = os.environ["yghCK"].split()
+    print("共找到", len(yghCKs), "个账号")
+    i = 0
     for yghCK in yghCKs:
+        i = i + 1
         ck = yghCK
-        # print (ck)
+        print("开始第", i, "个账号")
         main()
