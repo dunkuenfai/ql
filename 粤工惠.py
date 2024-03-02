@@ -8,11 +8,101 @@ new Env('粤工惠')
  多账号换行
 """
 
-import requests, json, time, random, os
+import requests, json, time, random, os,datetime
 
 
 ck = ""
 
+import requests
+import json
+import datetime
+
+def getTotalSize():
+    today=datetime.date.today() 
+    oneday=datetime.timedelta(days=1) 
+    yesterday=today-oneday
+    url = "https://matrix-api.gdftu.org.cn/api/v1/enduser/event/quiz-for-points-v1/result?limit=10&offset=0&startTime="+str(yesterday)+"T16%3A00%3A00.000Z&endTime="+str(today)+"T15%3A59%3A59.999Z&descending=false"
+    
+    payload = {}
+    headers = {
+      'Host': 'matrix-api.gdftu.org.cn',
+      'Content-Type': 'application/json',
+      'Connection': 'keep-alive',
+      'Accept': 'application/json, text/plain, */*',
+      'User-Agent': 'Mozilla/5.0 (iPad; CPU OS 15_4_1 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/15E148 Html5Plus/1.0 (Immersed/20) uni-app',
+      'Authorization': 'Bearer '*ck,
+      'Accept-Language': 'zh-CN,zh-Hans;q=0.9',
+      'Accept-Encoding': 'gzip, deflate, br'
+    }
+    
+    response = requests.request("GET", url, headers=headers, data=payload)
+    
+    a=json.loads(response.text)
+    b=a["totalSize"]
+    return(b)
+    
+def getQus():
+
+  url = "https://matrix-api.gdftu.org.cn/api/v1/enduser/event/quiz-for-points-v1"
+
+  payload = json.dumps({
+  "payload": {
+    "action": "start",
+    "simulation": False
+    }
+  })
+  headers = {
+  'Host': 'matrix-api.gdftu.org.cn',
+  'Content-Type': 'application/json',
+  'Accept-Encoding': 'gzip, deflate, br',
+  'Connection': 'keep-alive',
+  'Accept': 'application/json, text/plain, */*',
+  'User-Agent': 'Mozilla/5.0 (iPad; CPU OS 15_4_1 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/15E148 Html5Plus/1.0 (Immersed/20) uni-app',
+  'Authorization': 'Bearer '*ck,
+  'Content-Length': '49',
+  'Accept-Language': 'zh-CN,zh-Hans;q=0.9'
+  }
+
+  response = requests.request("POST", url, headers=headers, data=payload)
+
+  a=json.loads(response.text)
+  b=(a['data']['questionSet'])
+  c={
+      "payload":{
+          "action":"submit",
+          "choices":{
+              "0":b["0"]["answer"],
+              "1":b["1"]["answer"],
+              "2":b["2"]["answer"],
+              "3":b["3"]["answer"],
+              "4":b["4"]["answer"]
+          },
+          "elapsed": "7.37,15.61,21.77,26.93,37.55",
+          "simulation": False
+      }
+  }
+  return c
+  
+def postAns(answer):
+
+    url = "https://matrix-api.gdftu.org.cn/api/v1/enduser/event/quiz-for-points-v1"
+    
+    payload = json.dumps(answer)
+    headers = {
+      'Host': 'matrix-api.gdftu.org.cn',
+      'Content-Type': 'application/json',
+      'Accept-Encoding': 'gzip, deflate, br',
+      'Connection': 'keep-alive',
+      'Accept': 'application/json, text/plain, */*',
+      'User-Agent': 'Mozilla/5.0 (iPad; CPU OS 15_4_1 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/15E148 Html5Plus/1.0 (Immersed/20) uni-app',
+      'Authorization': 'Bearer '+ck,
+      'Content-Length': '143',
+      'Accept-Language': 'zh-CN,zh-Hans;q=0.9'
+    }
+    
+    response = requests.request("POST", url, headers=headers, data=payload)
+    
+    print(response.text)
 
 def creditTasks():
     url = "https://matrix-api.gdftu.org.cn/api/v1/enduser/credit-task"
@@ -76,6 +166,9 @@ def balance():
 
 
 def main():
+    n=getTotalSize()
+    for i in range(5-n):
+        postAns(getQus())
     tasks = creditTasks()
     for task in tasks:
         requiredCompletionCount = int(task["requiredCompletionCount"])
