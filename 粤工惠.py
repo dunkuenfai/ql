@@ -30,7 +30,7 @@ def getTotalSize():
       'Connection': 'keep-alive',
       'Accept': 'application/json, text/plain, */*',
       'User-Agent': 'Mozilla/5.0 (iPad; CPU OS 15_4_1 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/15E148 Html5Plus/1.0 (Immersed/20) uni-app',
-      'Authorization': 'Bearer '*ck,
+      'Authorization': 'Bearer '+ck,
       'Accept-Language': 'zh-CN,zh-Hans;q=0.9',
       'Accept-Encoding': 'gzip, deflate, br'
     }
@@ -58,7 +58,7 @@ def getQus():
   'Connection': 'keep-alive',
   'Accept': 'application/json, text/plain, */*',
   'User-Agent': 'Mozilla/5.0 (iPad; CPU OS 15_4_1 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/15E148 Html5Plus/1.0 (Immersed/20) uni-app',
-  'Authorization': 'Bearer '*ck,
+  'Authorization': 'Bearer '+ck,
   'Content-Length': '49',
   'Accept-Language': 'zh-CN,zh-Hans;q=0.9'
   }
