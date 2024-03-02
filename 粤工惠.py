@@ -167,6 +167,7 @@ def balance():
 
 def main():
     n=getTotalSize()
+    print("今天已答题数：",n)
     for i in range(5-n):
         postAns(getQus())
     tasks = creditTasks()
