@@ -34,12 +34,15 @@ def getTotalSize():
       'Accept-Language': 'zh-CN,zh-Hans;q=0.9',
       'Accept-Encoding': 'gzip, deflate, br'
     }
+    try:
+        response = requests.request("GET", url, headers=headers, data=payload)
     
-    response = requests.request("GET", url, headers=headers, data=payload)
-    
-    a=json.loads(response.text)
-    b=a["totalSize"]
-    return(b)
+        a=json.loads(response.text)
+        b=a["totalSize"]
+        return(b)
+    except Exception as e:
+        print(e)
+        return(e)
     
 def getQus():
 
@@ -62,12 +65,14 @@ def getQus():
   'Content-Length': '49',
   'Accept-Language': 'zh-CN,zh-Hans;q=0.9'
   }
+  try:
 
-  response = requests.request("POST", url, headers=headers, data=payload)
+    response = requests.request("POST", url, headers=headers, data=payload)
 
-  a=json.loads(response.text)
-  b=(a['data']['questionSet'])
-  c={
+    a=json.loads(response.text)
+#   print(a)
+    b=(a['data']['questionSet'])
+    c={
       "payload":{
           "action":"submit",
           "choices":{
@@ -80,10 +85,17 @@ def getQus():
           "elapsed": "1.37,2.61,3.77,4.93,5.55",
           "simulation": False
       }
-  }
-  return c
+    }
+#   print(c)
+    return c
+  except Exception as e:
+        print(e)
+        return(None)  
   
 def postAns(answer):
+    if(answer==None):
+        print('答题错误请检查CK')
+        return
 
     url = "https://matrix-api.gdftu.org.cn/api/v1/enduser/event/quiz-for-points-v1"
     
@@ -99,11 +111,12 @@ def postAns(answer):
       'Content-Length': '143',
       'Accept-Language': 'zh-CN,zh-Hans;q=0.9'
     }
+    try:
+        response = requests.request("POST", url, headers=headers, data=payload)
     
-    response = requests.request("POST", url, headers=headers, data=payload)
-    
-    print(response.text)
-
+        print(response.text)
+    except Exception as e:
+        print(e)
 def creditTasks():
     url = "https://matrix-api.gdftu.org.cn/api/v1/enduser/credit-task"
 
@@ -117,10 +130,12 @@ def creditTasks():
         "User-Agent": "Mozilla/5.0 (iPad; CPU OS 15_4_1 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/15E148 MicroMessenger/8.0.44(0x18002c2b) NetType/WIFI Language/zh_CN",
         "Referer": "https://servicewechat.com/wxfcc5a91b4f0d6e38/152/page-frame.html",
     }
-
-    response = requests.request("GET", url, headers=headers, data=payload)
-    ret = json.loads(response.text)
-    return ret["creditTasks"]
+    try:
+        response = requests.request("GET", url, headers=headers, data=payload)
+        ret = json.loads(response.text)
+        return ret["creditTasks"]
+    except Exception as e:
+        print(e)
 
 
 def report(userStatusType):
@@ -138,11 +153,13 @@ def report(userStatusType):
         "User-Agent": "Mozilla/5.0 (iPad; CPU OS 15_4_1 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/15E148 MicroMessenger/8.0.44(0x18002c2b) NetType/WIFI Language/zh_CN",
         "Referer": "https://servicewechat.com/wxfcc5a91b4f0d6e38/152/page-frame.html",
     }
+    try:
+        response = requests.request("POST", url, headers=headers, data=payload)
 
-    response = requests.request("POST", url, headers=headers, data=payload)
-
-    if "code" in response.text:
-        print(json.loads(response.text))
+        if "code" in response.text:
+            print(json.loads(response.text))
+    except Exception as e:
+        print(e)
 
 
 def balance():
@@ -159,15 +176,18 @@ def balance():
         "User-Agent": "Mozilla/5.0 (iPad; CPU OS 15_4_1 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/15E148 MicroMessenger/8.0.44(0x18002c2b) NetType/WIFI Language/zh_CN",
         "Referer": "https://servicewechat.com/wxfcc5a91b4f0d6e38/153/page-frame.html",
     }
+    try:
+        response = requests.request("GET", url, headers=headers, data=payload)
 
-    response = requests.request("GET", url, headers=headers, data=payload)
-
-    return json.loads(response.text)
-
+        return json.loads(response.text)
+    except Exception as e:
+        print(e)
 
 def main():
     n=getTotalSize()
     print("今天已答题数：",n)
+    # getQus()
+    # return
     for i in range(5-n):
         postAns(getQus())
     tasks = creditTasks()
