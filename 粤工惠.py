@@ -185,6 +185,8 @@ def balance():
 
 def main():
     n=getTotalSize()
+    if(type(n)!=int):
+        return
     print("今天已答题数：",n)
     # getQus()
     # return
