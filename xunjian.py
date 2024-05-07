@@ -14,8 +14,7 @@ import os
 import re
 
 
-user=os.environ['zqkdFastCookie']
-userInfos=user.split('@')
+cookie=os.environ['xunjianCookie']
 def getList():
 #    import requests
     try:
@@ -23,8 +22,8 @@ def getList():
 
         payload = "{\r\n    \"estateType\":1,\r\n    \"countType\":1,\r\n    \"curPage\":1,\r\n    \"pageSize\":50}"
         headers = {
-  'Accesstoken': 'Bearer ZH_00009:eyJ0eXBlIjoiSldUIiwiYWxnIjoiSFMyNTYifQ.eyJzdWIiOiJ0ZXN0IiwibG9naW5NZXRob2QiOm51bGwsInRlbmVtZW50Q29kZSI6IlpIXzAwMDA5IiwiZXhwIjoxNjkxNDY4Mjk5LCJpYXQiOjE2OTAxNzIyOTksImFjY291bnQiOiIxNTkxNzEwMDIxNyJ9.RtV88Wu5fpizHAvMtCn_kGMqBB4WwIC8aAobCCcJxKA',
-  'Authorization': 'Bearer ZH_00009:eyJ0eXBlIjoiSldUIiwiYWxnIjoiSFMyNTYifQ.eyJzdWIiOiJ0ZXN0IiwibG9naW5NZXRob2QiOm51bGwsInRlbmVtZW50Q29kZSI6IlpIXzAwMDA5IiwiZXhwIjoxNjkxNDY4Mjk5LCJpYXQiOjE2OTAxNzIyOTksImFjY291bnQiOiIxNTkxNzEwMDIxNyJ9.RtV88Wu5fpizHAvMtCn_kGMqBB4WwIC8aAobCCcJxKA',
+  'Accesstoken': 'Bearer '+cookie,
+  'Authorization': 'Bearer '+cookie,
   'Content-Type': 'application/json;charset=UTF-8',
   'X-Space-Projectcodes': 'ZH_00009_XM_00000001'
 }
@@ -75,7 +74,7 @@ def pushMsn(token,title,content):
 def start():
     msg=""
     items=getList()
-    arr=["管理","包装","工艺员","设备员"]
+    arr=["管理","包装","工艺员","设备员","综合"]
     #print(arr)
     
     for item in items:
