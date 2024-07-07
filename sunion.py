@@ -12,7 +12,7 @@ from datetime import timedelta
 #https://weapp.zhdy.es668.cn/records?access-token=hJMVgtfhfmBJrlrzV-efVM2HiGonH5OA
 
 token=os.environ['znl']
-base_url='https://weapp.zhdy.yishangkj.com'
+base_url='https://weapp.zhdy.yunchuangx.cn'
 # 签到
 msg=""
 params = {"records":[
