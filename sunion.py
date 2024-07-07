@@ -205,7 +205,7 @@ def pushMsn(token,title,content):
             "template":"json"
         }
 
-        response = requests.post(url, json =params)
+        response = requests.post(url, data =params)
 
         response.raise_for_status()
 
