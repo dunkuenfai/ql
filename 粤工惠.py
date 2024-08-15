@@ -16,6 +16,37 @@ ck = ""
 import requests
 import json
 import datetime
+def share():
+
+  url = "https://matrix-api.gdftu.org.cn/api/v1/enduser/event/quiz-for-points-v1"
+
+  payload = json.dumps({
+  "payload": {
+    "action": "start",
+    "shared": True
+  }
+})
+  headers = {
+  'Host': 'matrix-api.gdftu.org.cn',
+  'Connection': 'keep-alive',
+  'Content-Length': '44',
+  'content-type': 'application/json',
+  'Authorization': 'Bearer '+ck,
+  'Accept': 'application/json, text/plain, */*',
+  'Accept-Encoding': 'gzip,compress,br,deflate',
+  'User-Agent': 'Mozilla/5.0 (iPad; CPU OS 17_5_1 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/15E148 MicroMessenger/8.0.50(0x18003237) NetType/WIFI Language/zh_CN',
+  'Referer': 'https://servicewechat.com/wxfcc5a91b4f0d6e38/205/page-frame.html'
+}
+
+  try:
+
+    response = requests.request("POST", url, headers=headers, data=payload)
+
+    #print(response.text)
+    print('分享成功！')
+  except Exception as e:
+    print(e)
+
 
 def getTotalSize():
     today=datetime.date.today() 
@@ -38,10 +69,11 @@ def getTotalSize():
         response = requests.request("GET", url, headers=headers, data=payload)
     
         a=json.loads(response.text)
+        #print(a)
         b=a["totalSize"]
         return(b)
     except Exception as e:
-        print(e)
+        print('获取答题信息失败，请检查CK')
         return(e)
     
 def getQus():
@@ -89,13 +121,13 @@ def getQus():
 #   print(c)
     return c
   except Exception as e:
-        print(e)
+        #print(e)
         return(None)  
   
 def postAns(answer):
     if(answer==None):
-        print('答题错误请检查CK')
-        return
+        print('答题错误!已完成答题任务或CK已过期')
+        return False
 
     url = "https://matrix-api.gdftu.org.cn/api/v1/enduser/event/quiz-for-points-v1"
     
@@ -115,6 +147,7 @@ def postAns(answer):
         response = requests.request("POST", url, headers=headers, data=payload)
     
         print(response.text)
+        return True
     except Exception as e:
         print(e)
 def creditTasks():
@@ -188,10 +221,13 @@ def main():
     if(type(n)!=int):
         return
     print("今天已答题数：",n)
+    if(n<6):
+        share()
     # getQus()
     # return
-    for i in range(5-n):
-        postAns(getQus())
+    res=True
+    while res:
+        res = postAns(getQus())
     tasks = creditTasks()
     for task in tasks:
         requiredCompletionCount = int(task["requiredCompletionCount"])
