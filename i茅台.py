@@ -36,8 +36,6 @@ configs=a=eval(configs)
 # }]
 
 
-print(configs)
-
 class Encrypt:
     def __init__(self, key, iv):
         self.key = key.encode('utf-8')
