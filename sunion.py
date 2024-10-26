@@ -9,6 +9,7 @@ import json
 import os 
 from datetime import date,datetime
 from datetime import timedelta
+from sendNotify import send
 #https://weapp.zhdy.es668.cn/records?access-token=hJMVgtfhfmBJrlrzV-efVM2HiGonH5OA
 
 token=os.environ['znl']
@@ -192,32 +193,7 @@ def toutiao():
 
 
 
-"""pushplus"""
-def pushMsn(token,title,content):
 
-    try:
-
-        url = "http://www.pushplus.plus/send"
-        params={
-            "token":{token},
-            "title":title,
-            "content":content,
-            "template":"json"
-        }
-
-        response = requests.post(url, data =params)
-
-        response.raise_for_status()
-
-        response.encoding = response.apparent_encoding
-
-        data=json.loads(response.text)
-
-        #print(data)
-        
-    except Exception as e:
-
-        print("push消息错误", e)
 
 
 
@@ -237,7 +213,7 @@ def main():
 
     #print("-------------------发布结束-------------------")
     msg=msg+str(params)
-    pushMsn('9265ac3f9ab34138a56f68a1c4624e93','正能量',msg)
+    send('正能量',msg)
     print(msg)
 
 
