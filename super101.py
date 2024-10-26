@@ -1,0 +1,39 @@
+"""
+cron: 1 0  0 * * *
+new Env('super101签到')
+参数自行修改
+"""
+import requests
+import json
+from sendNotify import send
+
+url = "https://capi.lzyun.vip/leaguers/signin"
+
+payload = json.dumps({
+  "SignInID": "b27db4ca-9430-4837-9fd6-44e8fbce29e2",
+  "Longitude": 110.95701600000007,
+  "Latitude": 21.654112000000016
+})
+headers = {
+  'Host': 'capi.lzyun.vip',
+  'Connection': 'keep-alive',
+  'Content-Length': '78',
+  'Content-Type': 'application/json',
+  'CH-BIZCODE': '0.08460559983228444',
+  'CH-SHOPID': '13586',
+  'CH-CHAINID': '3091',
+  'CH-SEQID': '0.04909722685891904',
+  'CH-SIGN': 'CF1EF3D2F2077E45C7739202F7BE152D',
+  'CH-TOKEN': 'B847BBE10E251EB69F0AAE1A6B99D17A422BFF2A0AB19070802DEF47AA9A9F16408BEA8D25E37B08AC542C6E8CC7EC4C920ECB0A00675D7ADA31DB5E981FE7A103048B083D18AB3ADBEAD0591B272C18D06609825CC5064DF5D000F3AC2E811AD7615925004522B28E3E5549EA1FA0235C1CDB08ABB56EE1D6FC759688A7DFB126CBC652F4611DCAD195BF76A0596E696534F049DB3036429B0FE072824D3352005870A94D8F99397396886AD23F1BE689B59E27E2F080AE6C25A5B3B5D49629C4C08D8ED7106A86A7CCD61A7BEB360ED034D3358EEDA826B75230486A6D275AD3EFB0E4B6DAAB7AE27A1412A459026DED0C506D1475B20B18100DBA0D5980C659B3FC56BE9F461D',
+  'CH-TIMESTAMP': '1729431766000',
+  'CH-ISCHAIN': 'true',
+  'Accept-Encoding': 'gzip,compress,br,deflate',
+  'User-Agent': 'Mozilla/5.0 (iPad; CPU OS 17_5_1 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/15E148 MicroMessenger/8.0.53(0x18003527) NetType/WIFI Language/zh_CN',
+  'Referer': 'https://servicewechat.com/wx4cb219022eda272a/15/page-frame.html',
+  'Cookie': 'aliyungf_tc=5d3057003dee5088acb10e884b6ee91817ec96e529482700cb6e0b475cd393fb'
+}
+
+response = requests.request("POST", url, headers=headers, data=payload)
+
+print(response.text)
+send("super101",response.text)
