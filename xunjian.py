@@ -12,7 +12,7 @@ import requests
 import json
 import os
 import re
-
+from sendNotify import send
 
 cookie=os.environ['xunjianCookie']
 def getList():
@@ -44,32 +44,7 @@ def hasStr(a,b):
             return True
     return False
 
-"""pushplus"""
-def pushMsn(token,title,content):
 
-    try:
-
-        url = "http://www.pushplus.plus/send"
-        params={
-            "token":{token},
-            "title":title,
-            "content":content,
-            "template":"json"
-        }
-
-        response = requests.post(url, params =params)
-
-        response.raise_for_status()
-
-        response.encoding = response.apparent_encoding
-
-        data=json.loads(response.text)
-
-        #print(data)
-        
-    except Exception as e:
-
-        print("push消息错误", e)
 
 def start():
     msg=""
@@ -86,7 +61,7 @@ def start():
             #print ("doneSubtaskNum",item['doneSubtaskNum'])
             msg=msg+ ("===================================")+"\n"
     print(msg)
-    pushMsn('9265ac3f9ab34138a56f68a1c4624e93','巡检提醒',msg)
+    send('巡检提醒',msg)
 
     # print(data)
 
