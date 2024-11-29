@@ -8,7 +8,7 @@ new Env('粤工惠')
  多账号换行
 """
 
-import requests, json, time, random, os,datetime
+import requests, json, time, random, os,datetime,re
 
 
 ck = ""
@@ -247,11 +247,16 @@ def main():
 
 
 if __name__ == "__main__":
-    yghCKs = os.environ["yghCK"].split()
-    print("共找到", len(yghCKs), "个账号")
-    i = 0
-    for yghCK in yghCKs:
-        i = i + 1
-        ck = yghCK
-        print("开始第", i, "个账号")
-        main()
+    if( 'yghCK' in os.environ):
+        yghCKs = re.split("\n|&",os.environ["yghCK"])
+        print("共找到", len(yghCKs), "个账号")
+        i = 0
+        for yghCK in yghCKs:
+            i = i + 1
+            ck = yghCK
+            print("开始第", i, "个账号")
+            main()
+
+    else:
+        print("请填写yghCK环境变量")
+    
