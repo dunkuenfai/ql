@@ -12,7 +12,7 @@ email = os.environ.get('EMAIL')
 # 配置用户名对应的密码 和上面的email对应上
 passwd = os.environ.get('PASSWD')
 
-base_url = 'https://ikuuu.top' #这个网址可能会变，按实际修改
+base_url = 'https://ikuuu.one' #这个网址可能会变，按实际修改
 
 login_url = base_url + '/auth/login'
 check_url = base_url + '/user/checkin'
