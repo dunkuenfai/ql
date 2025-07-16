@@ -12,7 +12,7 @@ import json
 import os
 import requests
 from json import dumps as jsonDumps
-address = "http://127.0.0.1:5800"
+address = "http://10.113.24.88:5800"
 client_id = "_HX3HJfzOV3G"
 client_secret = "Lrie2fsj-_NnDYD88h56w5sg"
 
@@ -237,5 +237,7 @@ if __name__ == "__main__":
                 "remarks": updatamsg["remarks"]
             })
             print(f"{updatamsg['remarks']} 已启用")
+            ql.enable([updatamsg['id']])
         else:
             print(f"{updatamsg['remarks']} 已禁止")
+            ql.disable([updatamsg['id']])
