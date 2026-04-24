@@ -193,9 +193,21 @@ def toutiao():
 
 
 
+def pengpai():
+    try:
+        url = "https://cache.thepaper.cn/contentapi/wwwIndex/rightSidebar"
+        response = requests.get(url)
+        response.raise_for_status()
+        datas = response.json()['data']['morningEveningNews']
+        for data in datas:
+            content={}
+            value=data['name']
+            content['value']="阅读新闻《"+value+"》"
+            content['type']=10
+            params['records'].append(content)
+    except Exception as e:
 
-
-
+        print("读取澎湃新闻失败", e)
 
 
 def main():
